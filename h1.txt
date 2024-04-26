@@ -1,0 +1,126 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+class Flight 
+{
+ private String flightNumber;
+ private String source;
+ private String destination;
+ private int availableSeats;
+public Flight(String flightNumber, String source, String destination, int 
+availableSeats) 
+{
+ this.flightNumber = flightNumber;
+ this.source = source;
+ this.destination = destination;
+ this.availableSeats = availableSeats;
+ }
+ public String getFlightNumber() 
+{
+ return flightNumber;
+ }
+ public String getSource() 
+{
+ return source;
+ }
+ public String getDestination()
+ {
+ return destination;
+ }
+ public int getAvailableSeats()
+ {
+ return availableSeats;
+ }
+ public void bookSeats(int numSeats) 
+{
+ if (availableSeats >= numSeats)
+ {
+ availableSeats -= numSeats;
+ System.out.println("Seats booked successfully!");
+ } 
+else 
+{
+ System.out.println("Insufficient seats available!");
+ }
+ }
+ }
+ class AirlineReservationSystem
+ {
+ private List<Flight> flights;
+ public AirlineReservationSystem()
+ {
+ flights = new ArrayList<>();
+ }
+ public void addFlight(Flight flight) 
+{
+ flights.add(flight);
+ }
+public void displayAvailableFlights()
+ {
+ System.out.println("Available Flights:");
+ System.out.println("------------------");
+ for (Flight flight : flights) {
+ System.out.println("Flight Number: " + flight.getFlightNumber());
+ System.out.println("Source: " + flight.getSource());
+ System.out.println("Destination: " + flight.getDestination());
+ System.out.println("Available Seats: " + flight.getAvailableSeats());
+ System.out.println("------------------");
+ }
+ }
+ public Flight findFlight(String flightNumber)
+ {
+ for (Flight flight : flights) 
+{
+ if (flight.getFlightNumber().equals(flightNumber))
+ {
+ return flight;
+ }
+ }
+ return null;
+ }
+}
+public class Main 
+{
+ public static void main(String[] args)
+ {
+ AirlineReservationSystem airlineReservationSystem = new 
+AirlineReservationSystem();
+ Flight flight1 = new Flight("ABC123", "City A", "City B", 100);
+ Flight flight2 = new Flight("DEF456", "City C", "City D", 200);
+ airlineReservationSystem.addFlight(flight1);
+ airlineReservationSystem.addFlight(flight2);
+ Scanner scanner = new Scanner(System.in);
+ while (true) 
+{
+ System.out.println("Welcome to the Airline Reservation System!");
+ System.out.println("1. Book a Flight");
+ System.out.println("2. View Available Flights");
+ System.out.println("3. Exit");
+ System.out.print("Enter your choice: ");
+ int choice = scanner.nextInt();
+ switch (choice)
+ {
+ case 1:
+ System.out.print("Enter the flight number: ");
+ String flightNumber = scanner.next();
+ System.out.print("Enter the number of seats to book: ");
+ int numSeats = scanner.nextInt();
+ Flight flight = airlineReservationSystem.findFlight(flightNumber);
+ if (flight != null)
+ {
+ flight.bookSeats(numSeats);
+ } 
+else 
+{
+ System.out.println("Flight not found!");
+ }
+ break;
+ case 2:
+ airlineReservationSystem.displayAvailableFlights();
+ break;
+ case 3:
+ System.out.println("Thank you for using the Airline Reservation 
+System. Goodbye!");
+ System.exit(0);
+ default:
+ System.out.println("Invalid choice! Please try again.");}}}}
